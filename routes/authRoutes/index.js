@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 // Mongoose Schema
-const userInfo = require("../../models/user-info");
+const userInfo = require("../../models/userInfo");
 
 // Validation
 const { userValidation, loginValidation } = require("./validation");
@@ -13,7 +13,7 @@ const { userValidation, loginValidation } = require("./validation");
 router.post("/register", async (req, res) => {
   // Validate user info
   const { error } = userValidation(req.body);
-  if (error) res.status(400).json({ error: error.details[0].message });
+  if (error) return res.status(400).json({ error: error.details[0].message });
 
   // Check email already exist
   const emailExist = await userInfo.findOne({

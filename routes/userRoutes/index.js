@@ -5,7 +5,7 @@ const router = express.Router();
 const verify = require("./../authRoutes/verifyToken");
 
 // Mongoose Schema
-const userInfo = require("../../models/user-info");
+const userInfo = require("../../models/userInfo");
 
 // Get all users info
 router.get("/", verify, async (req, res) => {

@@ -17,17 +17,21 @@ const userSchema = mongoose.Schema({
   "email-id": {
     primary: {
       type: String,
-      unique: true,
       require: true,
+      min: 6,
+      max: 255,
     },
     secondary: {
       type: String,
+      min: 6,
+      max: 255,
     },
   },
   password: {
     type: String,
     require: true,
     min: 10,
+    max: 1024,
   },
   "contact-no": {
     primary: {

@@ -1,25 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const userInfo = require("../models/user-info");
 
-// Insert new user info
-router.post("/", async (req, res) => {
-  const insertUser = new userInfo(req.body);
-  try {
-    const saveUser = await insertUser.save();
-    res.json(saveUser);
-  } catch (err) {
-    res.send({ message: err });
-  }
-});
+// Verification
+const verify = require("./../authRoutes/verifyToken");
+
+// Mongoose Schema
+const userInfo = require("../../models/user-info");
 
 // Get all users info
-router.get("/", async (req, res) => {
+router.get("/", verify, async (req, res) => {
   try {
     const userDetails = await userInfo.find();
     res.json(userDetails);
   } catch (err) {
-    res.send({ message: err });
+    res.send({ error: err });
   }
 });
 
@@ -29,7 +23,7 @@ router.get("/:userId", async (req, res) => {
     const userDetail = await userInfo.findById(req.params.userId);
     res.json(userDetail);
   } catch (err) {
-    res.send({ message: err });
+    res.send({ error: err });
   }
 });
 
@@ -39,7 +33,7 @@ router.delete("/:userId", async (req, res) => {
     const deleteUser = await userInfo.remove({ _id: req.params.userId });
     res.json(deleteUser);
   } catch (err) {
-    res.send({ message: err });
+    res.send({ error: err });
   }
 });
 
@@ -52,7 +46,7 @@ router.patch("/:userId", async (req, res) => {
     );
     res.json(updateUser);
   } catch (err) {
-    res.send({ message: err });
+    res.send({ error: err });
   }
 });
 

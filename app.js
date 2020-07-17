@@ -15,9 +15,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Import Routes
-const userRoutes = require("./routes/users");
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Router middleware
+app.use("/", authRoutes);
 app.use("/users", userRoutes);
 
 //Connect to DB

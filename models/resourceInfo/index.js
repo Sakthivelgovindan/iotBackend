@@ -1,16 +1,68 @@
 const mongoose = require("mongoose");
 
-const resourceSchema = mongoose.Schema(
-  {
-    "user-id": {
-      type: String,
-      ref: "user-infos",
-      require: true,
-    },
-    buildings: [buildingSchema],
+const componentSchema = mongoose.Schema({
+  id: {
+    type: String,
+    require: true,
   },
-  { timestamps: true }
-);
+  name: {
+    type: String,
+    require: true,
+  },
+  status: {
+    type: Number,
+    require: true,
+  },
+});
+
+const deviceSchema = mongoose.Schema({
+  id: {
+    type: String,
+    require: true,
+  },
+  name: {
+    type: String,
+    require: true,
+  },
+  lights: [componentSchema],
+  fans: [componentSchema],
+});
+
+const boxSchema = mongoose.Schema({
+  id: {
+    type: String,
+    require: true,
+  },
+  name: {
+    type: String,
+    require: true,
+  },
+  devices: [deviceSchema],
+});
+
+const roomSchema = mongoose.Schema({
+  id: {
+    type: String,
+    require: true,
+  },
+  name: {
+    type: String,
+    require: true,
+  },
+  boxes: [boxSchema],
+});
+
+const floorSchema = mongoose.Schema({
+  id: {
+    type: String,
+    require: true,
+  },
+  name: {
+    type: String,
+    require: true,
+  },
+  rooms: [roomSchema],
+});
 
 const buildingSchema = mongoose.Schema({
   id: {
@@ -21,39 +73,18 @@ const buildingSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  floorSchema: [floorSchema],
+  floors: [floorSchema],
 });
-const floorSchema = mongoose.Schema({
-  id: {
-    type: String,
-    require: true,
+
+const resourceSchema = mongoose.Schema(
+  {
+    "user-id": {
+      type: String,
+      require: true,
+    },
+    buildings: [buildingSchema],
   },
-  name: {
-    type: String,
-    require: true,
-  },
-  roomSchema: [roomSchema],
-});
-const roomSchema = mongoose.Schema({
-  id: {
-    type: String,
-    require: true,
-  },
-  name: {
-    type: String,
-    require: true,
-  },
-  boxSchema: [boxSchema],
-});
-const boxSchema = mongoose.Schema({
-  id: {
-    type: String,
-    require: true,
-  },
-  name: {
-    type: String,
-    require: true,
-  },
-});
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("resource-infos", resourceSchema);

@@ -17,10 +17,12 @@ app.use(bodyParser.json());
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const resourceRoutes = require("./routes/resourceRoutes");
 
 // Router middleware
 app.use("/", authRoutes);
 app.use("/users", userRoutes);
+app.use("/resources", resourceRoutes);
 
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {

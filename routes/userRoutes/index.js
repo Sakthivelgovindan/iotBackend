@@ -8,7 +8,7 @@ const verify = require("./../authRoutes/verifyToken");
 const userInfo = require("../../models/userInfo");
 
 // Get all users info
-router.get("/", verify, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const userDetails = await userInfo.find();
     res.json(userDetails);

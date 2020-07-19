@@ -13,19 +13,10 @@ const componentSchema = mongoose.Schema({
     type: Number,
     require: true,
   },
-});
-
-const deviceSchema = mongoose.Schema({
-  id: {
+  type: {
     type: String,
     require: true,
   },
-  name: {
-    type: String,
-    require: true,
-  },
-  lights: [componentSchema],
-  fans: [componentSchema],
 });
 
 const boxSchema = mongoose.Schema({
@@ -37,7 +28,7 @@ const boxSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  devices: [deviceSchema],
+  devices: [componentSchema],
 });
 
 const roomSchema = mongoose.Schema({

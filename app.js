@@ -55,8 +55,8 @@ io.on("connection", (socket) => {
   console.log("New client connected");
 
   socket.on("room", function (data) {
-    const { id, status } = data;
-    io.sockets.emit("status", { id, status });
+    const { deviceId, deviceStatus, devicePath } = data;
+    io.sockets.emit("status", { deviceId, deviceStatus, devicePath });
   });
 
   socket.on("disconnect", () => {

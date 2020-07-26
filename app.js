@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const cors = require("cors");
-let interval;
+const { ApolloServer, gql } = require("apollo-server-express");
+// const schema = require("./src/components/index");
 
 // Import environment config
 require("dotenv/config");
@@ -64,10 +65,29 @@ io.on("connection", (socket) => {
   });
 });
 
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => "Hello world!",
+  },
+};
+
+const gqlServer = new ApolloServer({ typeDefs, resolvers });
+gqlServer.applyMiddleware({ app });
+
 //Port listening
 server.listen(process.env.PORT || 8000, function () {
   // var port = server.address().port;
   console.log(
-    `🚀 Server is running on http://localhost:${process.env.PORT || 8000}`
+    `🚀 Server is running on http://localhost:${process.env.PORT || 8000}${
+      gqlServer.graphqlPath
+    }`
   );
 });

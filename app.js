@@ -65,7 +65,9 @@ io.on("connection", (socket) => {
 });
 
 //Port listening
-server.listen(8000, function () {
-  var port = server.address().port;
-  console.log(`🚀 Server is running on http://localhost:${port}`);
+server.listen(process.env.PORT || 8000, function () {
+  // var port = server.address().port;
+  console.log(
+    `🚀 Server is running on http://localhost:${process.env.PORT || 8000}`
+  );
 });

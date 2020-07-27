@@ -7,5 +7,4 @@ export default {
       return model.getDataSheetInfo();
     },
   },
-  Mutation: {},
 };

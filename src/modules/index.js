@@ -24,7 +24,7 @@ import { fileLoader, mergeResolvers, mergeTypes } from "merge-graphql-schemas";
  *    @argument extensions - File extensions to loop through
  */
 const resolversArray = fileLoader(
-  path.join(__dirname, "../modules/**/resolvers.js"),
+  path.join(__dirname, "../modules/**/resolver.js"),
   {
     recursive: true,
     extensions: [".js"],

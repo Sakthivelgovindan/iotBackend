@@ -1,13 +1,16 @@
 // Import Packages
-const express = require("express");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { ApolloServer, gql } from "apollo-server-express";
+
 const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const cors = require("cors");
-const { ApolloServer, gql } = require("apollo-server-express");
-// const schema = require("./src/components/index");
+
+// Import graphql schema
+import schema from "./modules/index";
 
 // Import environment config
 require("dotenv/config");
@@ -65,21 +68,8 @@ io.on("connection", (socket) => {
   });
 });
 
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => "Hello world!",
-  },
-};
-
-const gqlServer = new ApolloServer({ typeDefs, resolvers });
+// GraphQL server setup
+const gqlServer = new ApolloServer({ schema });
 gqlServer.applyMiddleware({ app });
 
 //Port listening

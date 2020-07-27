@@ -12,8 +12,7 @@ type dataSheetInfo{
 }
 
 type Query {
-   data: [dataSheetInfo]
+   getDataSheetInfo: [dataSheetInfo]
 }
 
-type Mutation {}
 `;

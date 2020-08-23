@@ -68,6 +68,26 @@ io.on("connection", (socket) => {
     io.sockets.emit("analog", { id, value });
   });
 
+  socket.on("digitalInput", function (data) {
+    const { deviceId, devicePath, deviceValue, deviceStatus } = data;
+    io.sockets.emit("digitalData", {
+      deviceId,
+      devicePath,
+      deviceValue,
+      deviceStatus,
+    });
+  });
+
+  socket.on("analogInput", function (data) {
+    const { deviceId, devicePath, deviceValue, deviceStatus } = data;
+    io.sockets.emit("analogData", {
+      deviceId,
+      devicePath,
+      deviceValue,
+      deviceStatus,
+    });
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
